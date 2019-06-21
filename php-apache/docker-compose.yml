@@ -1,0 +1,10 @@
+version: '3.7'
+services:
+  php-apache:
+    image: php:7.2-apache
+    container_name: php-apache
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+      - ${PWD}:/var/www/html
