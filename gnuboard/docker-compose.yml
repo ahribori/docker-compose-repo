@@ -1,0 +1,49 @@
+version: '3.7'
+services:
+
+  gnuboard:
+    build: ./
+    image: php:7.2-apache-ext
+    container_name: php-apache
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+      - ${PWD}/gnuboard5:/var/www/html
+    networks:
+      - gnunet
+    depends_on:
+      - db
+
+  db:
+    image: mariadb
+    container_name: mariadb
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - ${PWD}/data:/var/lib/mysql
+    networks:
+      - gnunet
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+
+#  admin:
+#    image: phpmyadmin/phpmyadmin
+#    container_name: phpmyadmin
+#    ports:
+#      - 8080:80
+#    networks:
+#      - gnunet
+#    environment:
+#      - PMA_ARBITRARY=1
+#      - PMA_HOST=localhost:3306
+#    restart: always
+#    depends_on:
+#      - db
+
+networks:
+  gnunet:
