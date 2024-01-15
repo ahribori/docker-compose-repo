@@ -1,0 +1,10 @@
+version: '3.7'
+services:
+  influxdb2:
+    image: influxdb:latest
+    container_name: influxdb2
+    restart: always
+    ports:
+      - 8086:8086
+    volumes:
+      - ${PWD}/storage:/var/lib/influxdb2
